@@ -1,7 +1,12 @@
-export default function MatchTime({ matchTime }) {
+import MatchEta from './matchEta'
+
+export default function MatchTime({ matchTime, matchEta }) {
     return (
         <div className='basis-1/4'>
-            <span>{matchTime}</span>
+            <div>
+                <span>{matchTime}</span>
+            </div>
+            <MatchEta matchEta={matchEta} />
         </div>
     );
 }
