@@ -12,7 +12,7 @@ export default function MatchTable({ matches }) {
     });
     
     return (
-        <div className='mx-2 my-20 p-8 rounded bg-gray-950'>
+        <div className='my-20 p-8 bg-gray-950'>
             <ul>{rows}</ul>
         </div>
     );
