@@ -12,7 +12,7 @@ export default function MatchTable({ matches }) {
     });
     
     return (
-        <div className='my-20 p-2 bg-gray-950'>
+        <div className='my-20 px-4 py-2 bg-gray-950'>
             <ul>{rows}</ul>
         </div>
     );
