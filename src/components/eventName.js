@@ -1,6 +1,6 @@
 export default function EventName({ eventName }) {
     return (
-        <div>
+        <div className="basis-1/4">
             <span>{eventName}</span>
         </div>
     );
