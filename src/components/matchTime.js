@@ -6,7 +6,9 @@ export default function MatchTime({ matchTime, matchEta }) {
             <div>
                 <span>{matchTime}</span>
             </div>
-            <MatchEta matchEta={matchEta} />
+            <div>
+                <span>{matchEta}</span>
+            </div>
         </div>
     );
 }
