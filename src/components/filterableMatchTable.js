@@ -20,7 +20,7 @@ export default function FilterableMatchTable({ matches }) {
     }
     
     return (
-        <section>
+        <section className='block md:w-11/12 md:flex'>
             <FilterBar
                 matches={matches}
                 filterArr={filterArr}
