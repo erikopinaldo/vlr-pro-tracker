@@ -1,5 +1,3 @@
-import MatchEta from './matchEta'
-
 export default function MatchTime({ matchTime, matchEta }) {
     return (
         <div className='basis-1/4'>
