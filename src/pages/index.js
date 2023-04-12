@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import MatchTable from '../components/matchTable'
 import FilterBar from '../components/filterBar'
+import FilterableMatchTable from '../components/filterableMatchTable'
 
 const inter = Inter({ subsets: ['latin'] })
 const matches = [
@@ -63,8 +64,7 @@ const matches = [
 export default function Home() {
   return (
     <main>
-        <FilterBar matches={matches} />
-        <MatchTable matches={matches} />
+        <FilterableMatchTable matches={matches} />
     </main>
   )
 }
