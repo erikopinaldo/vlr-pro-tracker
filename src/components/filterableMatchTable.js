@@ -20,7 +20,7 @@ export default function FilterableMatchTable({ matches }) {
     }
     
     return (
-        <div>
+        <section>
             <FilterBar
                 matches={matches}
                 filterArr={filterArr}
@@ -28,6 +28,6 @@ export default function FilterableMatchTable({ matches }) {
             <MatchTable
                 matches={matches}
                 filterArr={filterArr} />
-        </div>
+        </section>
     );
 }
