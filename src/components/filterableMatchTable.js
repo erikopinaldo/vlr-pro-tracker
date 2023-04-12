@@ -7,7 +7,16 @@ export default function FilterableMatchTable({ matches }) {
 
     function handleFilterClick(eventName) {
         console.log(eventName)
-        const nextFilter = [...filterArr, eventName]
+
+        let nextFilter
+
+        if (filterArr.includes(eventName)) {
+            console.log('includes filter')
+            nextFilter = filterArr.filter(item => item !== eventName)
+        }
+        else {
+            nextFilter = [...filterArr, eventName]
+        }        
         setFilterArr(nextFilter)
     }
     
