@@ -1,10 +1,6 @@
 import FilterItem from './filterItem'
 
-export default function FilterBar({ matches, onFilterClick }) {
-    function handleClick(i) {
-
-    }
-    
+export default function FilterBar({ matches, onFilterClick }) {    
     const rows = []
 
     matches.forEach(match => {
