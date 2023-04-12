@@ -2,14 +2,19 @@ import FilterItem from './filterItem'
 
 export default function FilterBar({ matches, onFilterClick }) {    
     const rows = []
+    const events = []
 
     matches.forEach(match => {
-        rows.push(
-            <FilterItem
-                onFilterClick={() => onFilterClick}
-                eventName={match.event_name}
-                key={match.match_url} />
-        );
+        if (!events.includes(match.event_name)) {
+            events.push(match.event_name)
+
+            rows.push(
+                <FilterItem
+                    onFilterClick={() => onFilterClick}
+                    eventName={match.event_name}
+                    key={match.match_url} />
+            );
+        }
     });
 
     return (
