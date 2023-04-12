@@ -1,11 +1,16 @@
 import FilterItem from './filterItem'
 
-export default function FilterBar({ matches }) {
+export default function FilterBar({ matches, onFilterClick }) {
+    function handleClick(i) {
+
+    }
+    
     const rows = []
 
     matches.forEach(match => {
         rows.push(
             <FilterItem
+                onFilterClick={() => onFilterClick}
                 eventName={match.event_name}
                 key={match.match_url} />
         );
