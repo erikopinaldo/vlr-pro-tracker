@@ -5,7 +5,9 @@ export default function FilterBar({ matches }) {
 
     matches.forEach(match => {
         rows.push(
-            <FilterItem eventName={match.event_name} />
+            <FilterItem
+                eventName={match.event_name}
+                key={match.match_url} />
         );
     });
 
