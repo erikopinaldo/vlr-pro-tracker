@@ -11,7 +11,6 @@ export default function FilterableMatchTable({ matches }) {
         let nextFilter
 
         if (filterArr.includes(eventName)) {
-            console.log('includes filter')
             nextFilter = filterArr.filter(item => item !== eventName)
         }
         else {
