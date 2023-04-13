@@ -29,7 +29,7 @@ export default function FilterableMatchTable({ matches }) {
                 matches={matches}
                 filterArr={filterArr}
                 onFilterClick={(e) => handleFilterClick(e.target.textContent)}
-                onFilterReset={() => handleFilterReset()} />
+                onFilterReset={() => handleFilterReset} />
             <MatchTable
                 matches={matches}
                 filterArr={filterArr} />
