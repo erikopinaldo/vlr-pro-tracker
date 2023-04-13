@@ -18,13 +18,18 @@ export default function FilterableMatchTable({ matches }) {
         }        
         setFilterArr(nextFilter)
     }
+
+    function handleFilterReset() {
+        setFilterArr([])
+    }
     
     return (
         <section className='block md:w-11/12 md:grid md:grid-cols-10'>
             <FilterBar
                 matches={matches}
                 filterArr={filterArr}
-                onFilterClick={(e) => handleFilterClick(e.target.textContent)} />
+                onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                onFilterReset={() => handleFilterReset()} />
             <MatchTable
                 matches={matches}
                 filterArr={filterArr} />
