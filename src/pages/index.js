@@ -63,8 +63,15 @@ const matches = [
 
 export default function Home() {
   return (
-    <main>
+    <>
+      <header className='h-20 flex items-center'>
+        <h1 className='m-8 text-lg'>
+          VLR ESPORTS TRACKER
+        </h1>
+      </header>
+      <main>
         <FilterableMatchTable matches={matches} />
-    </main>
+      </main>
+    </>
   )
 }
