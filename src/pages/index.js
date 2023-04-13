@@ -459,7 +459,7 @@ const matches = [
 
 export default function Home() {
   return (
-    <div className='flex justify-center'>
+    <div className='md:flex md:justify-center'>
       <div className='md:w-11/12'>
         <header className='h-20 flex items-center'>
           <h1 className='m-8 text-lg'>
