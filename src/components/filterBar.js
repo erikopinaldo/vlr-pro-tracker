@@ -5,7 +5,7 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
     const events = []
 
     matches.forEach(match => {
-        let isActive = filterArr.includes(match.event_name)
+        const isActive = filterArr.includes(match.event_name)
 
         if (!events.includes(match.event_name)) {
             events.push(match.event_name)
