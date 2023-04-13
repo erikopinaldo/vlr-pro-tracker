@@ -1,6 +1,6 @@
 import FilterItem from './filterItem'
 
-export default function FilterBar({ matches, onFilterClick }) {    
+export default function FilterBar({ matches, onFilterClick, onFilterReset }) {    
     const rows = []
     const events = []
 
@@ -18,7 +18,9 @@ export default function FilterBar({ matches, onFilterClick }) {
     });
 
     rows.push((
-        <li key='reset' className='text-center'>
+        <li key='reset'
+            className='text-center'
+            onClick={onFilterReset()}>
             Reset filter
         </li>
     ))
