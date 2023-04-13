@@ -1,9 +1,18 @@
 import FilterBar from './filterBar'
 import MatchTable from './matchTable'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function FilterableMatchTable({ matches }) {
+export default function FilterableMatchTable() {
     const [filterArr, setFilterArr] = useState([]);
+    const [matches, setMatches] = useState([])
+
+    useEffect(() => {
+        const getMatches = async () => {
+            const data = await fetch('https://vlrgg-api-rpkr.onrender.com/api/matches/upcoming').then(data => data.json())
+            setMatches(data.matches)
+        }
+        getMatches()
+    }, [])
 
     function handleFilterClick(eventName) {
         console.log(eventName)
