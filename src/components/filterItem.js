@@ -1,7 +1,13 @@
-export default function filterItem({ eventName, onFilterClick }) {
+export default function filterItem({ eventName, isActive, onFilterClick }) {
+    let options = 'my-4 pl-8 py-2 md:px-16 rounded-full bg-gray-900 cursor-pointer'
+
+    if (isActive) {
+        options += ' outline outline-offset-2 outline-color-white'
+    }
+    
     return (
         <li
-            className='my-4 pl-8 py-2 md:px-16 rounded-full bg-gray-900 cursor-pointer'
+            className={options}
             onClick={onFilterClick()}>
             <span>{eventName}</span>
         </li>
