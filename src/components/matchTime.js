@@ -5,7 +5,7 @@ export default function MatchTime({ matchTime, matchEta }) {
                 <span>{matchTime}</span>
             </div>
             <div>
-                <span>{matchEta}</span>
+                <span>{matchEta === 'TBD' ? 'LIVE' : matchEta}</span>
             </div>
         </div>
     );
