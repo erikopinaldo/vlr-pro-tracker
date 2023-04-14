@@ -42,8 +42,13 @@ export default function MatchTable({ matches, filterArr }) {
         match.matchDate = matchDate
         
         if (match.matchDate !== lastDateHeader) {
+            let styleOptions
+            if (rows.length === 0) styleOptions = 'mt-4 md:mt-10 mb-2 px-6'
+            else styleOptions = 'mt-10 mb-2 px-6'
+            
             rows.push(
                 <MatchDateHeader
+                    styleOptions={styleOptions}
                     matchDate={matchDate}
                     key={matchDate} />
             );
@@ -61,7 +66,7 @@ export default function MatchTable({ matches, filterArr }) {
     });
     
     return (
-        <div className='my-6 md:my-0 px-4 py-2 md:col-span-7'>
+        <div className='px-4 py-0 md:py-2 md:col-span-7'>
             <ul>{rows}</ul>
         </div>
     );

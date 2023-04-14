@@ -1,6 +1,6 @@
 import FilterItem from './filterItem'
 
-export default function FilterBar({ matches, filterArr, onFilterClick, onFilterReset }) {    
+export default function FilterBar({ matches, filterArr, onFilterClick, onFilterReset, styleOptions }) {    
     const rows = []
     const events = []
 
@@ -29,7 +29,7 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
     });
 
     return (
-        <div className='m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2'>
+        <div className={styleOptions}>
             <ul>{rows}</ul>
         </div>
     );
