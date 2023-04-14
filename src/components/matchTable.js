@@ -1,4 +1,5 @@
 import MatchRow from './matchRow'
+import { DateTime } from 'luxon'
 
 export default function MatchTable({ matches, filterArr }) {
     const rows = []
@@ -21,14 +22,16 @@ export default function MatchTable({ matches, filterArr }) {
                 else if (timeSplit[1] === 'm') matchEtaIntervals.minutes = timeSplit[0]
                 else matchEtaIntervals = timeSplit[0]
             })
-        
-        console.log(matchEtaIntervals)
 
-        
+        let matchDate
+
+        if (matchEtaIntervals === 'TBD') matchDate = matchEtaIntervals
+        else matchDate = new DateTime(Date.now()).plus(matchEtaIntervals).toISODate()
         
         rows.push(
             <MatchRow
                 match={match}
+                matchDate={matchDate}
                 key={match.match_page} />
         );
     });
