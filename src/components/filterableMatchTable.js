@@ -3,6 +3,8 @@ import MatchTable from './matchTable'
 import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
+Modal.setAppElement('#__next');
+
 export default function FilterableMatchTable() {
     // Hard-coded default filters
     const [filterArr, setFilterArr] = useState(['Champions Tour 2023: Pacific League', 'Champions Tour 2023: Americas League', 'Champions Tour 2023: EMEA League']);
@@ -33,10 +35,49 @@ export default function FilterableMatchTable() {
     function handleFilterReset() {
         setFilterArr([])
     }
+
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
     
     return (
         <section className='block md:w-11/12 md:grid md:grid-cols-10'>
+            <div className='block md:hidden mt-4 mb-8 flex justify-center'>
+                <button
+                    className='inline-block md:hidden mx-4'
+                    onClick={openModal}>
+                    Filters
+                </button>
+            </div>
+            <Modal
+                className='m-10 bg-gray-950 rounded'
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Filter modal"
+            >
+                <div className='flex justify-center'>
+                    <button
+                        className='mt-4 px-6 py-2 bg-red-700 rounded'
+                        onClick={closeModal}>
+                        close
+                    </button>
+                </div>
+                
+                <FilterBar
+                    styleOptions='pb-4 px-4 bg-gray-950'
+                    matches={matches}
+                    filterArr={filterArr}
+                    onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                    onFilterReset={() => handleFilterReset} />
+            </Modal>
             <FilterBar
+                styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2'
                 matches={matches}
                 filterArr={filterArr}
                 onFilterClick={(e) => handleFilterClick(e.target.textContent)}
