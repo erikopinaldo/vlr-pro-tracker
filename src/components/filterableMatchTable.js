@@ -1,6 +1,7 @@
 import FilterBar from './filterBar'
 import MatchTable from './matchTable'
 import { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 
 export default function FilterableMatchTable() {
     // Hard-coded default filters
