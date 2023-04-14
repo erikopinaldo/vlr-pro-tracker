@@ -2,10 +2,10 @@ export default function MatchTime({ matchTime, matchEta }) {
     return (
         <div className='basis-1/5'>
             <div>
-                <span>{matchTime === 'TBD' ? 'LIVE' : matchTime}</span>
+                <span>{matchTime}</span>
             </div>
             <div>
-                <span>{matchEta}</span>
+                <span>{matchEta === 'TBD' ? 'LIVE' : matchEta}</span>
             </div>
         </div>
     );
