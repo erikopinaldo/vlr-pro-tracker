@@ -30,7 +30,7 @@ export default function MatchTable({ matches, filterArr }) {
         let matchDate
 
         if (matchEtaIntervals === 'TBD') matchDate = matchEtaIntervals
-        else matchDate = new DateTime(Date.now()).plus(matchEtaIntervals).toISODate()
+        else matchDate = new DateTime(Date.now()).plus(matchEtaIntervals).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
 
         // Create date row
         match.matchDate = matchDate
