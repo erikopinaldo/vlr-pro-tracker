@@ -13,17 +13,17 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
     ))
 
     matches.forEach(match => {
-        const isActive = filterArr.includes(match.event_name)
+        const isActive = filterArr.includes(match.tournament_name)
 
-        if (!events.includes(match.event_name)) {
-            events.push(match.event_name)
+        if (!events.includes(match.tournament_name)) {
+            events.push(match.tournament_name)
 
             rows.push(
                 <FilterItem
                     isActive={isActive}
                     onFilterClick={() => onFilterClick}
-                    eventName={match.event_name}
-                    key={match.match_url} />
+                    eventName={match.tournament_name}
+                    key={match.match_page} />
             );
         }
     });
