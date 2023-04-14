@@ -2,7 +2,9 @@ import MatchTime from './matchTime'
 import MatchTeams from './matchTeams'
 import EventName from './eventName'
 
-export default function matchRow({ match }) {
+export default function matchRow({ match, matchDate }) {
+
+    console.log(matchDate)
     return (
         <li className='flex justify-between items-center my-4 p-6 md:px-16 rounded bg-gray-900'>
             <MatchTime matchTime={match.time_until_match} />
