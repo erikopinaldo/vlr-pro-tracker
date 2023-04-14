@@ -11,7 +11,7 @@ export default function MatchTable({ matches, filterArr }) {
 
         let matchEtaIntervals = {}
 
-        const matchEtaArr = match.time_until_match
+       match.time_until_match
             .split(' ')
             .filter(element => element !== 'from' && element !== 'now')
             .forEach(time => {
