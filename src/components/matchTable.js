@@ -7,6 +7,24 @@ export default function MatchTable({ matches, filterArr }) {
         if (filterArr.length > 0 && filterArr.indexOf(match.tournament_name) === -1) {
             return;
         }
+
+        let matchEtaIntervals = {}
+
+        const matchEtaArr = match.time_until_match
+            .split(' ')
+            .filter(element => element !== 'from' && element !== 'now')
+            .forEach(time => {
+                const timeSplit = time.match(/[a-zA-Z]+|[0-9]+/g)
+
+                if (timeSplit[1] === 'd') matchEtaIntervals.days = timeSplit[0]
+                else if (timeSplit[1] === 'h') matchEtaIntervals.hours = timeSplit[0]
+                else if (timeSplit[1] === 'm') matchEtaIntervals.minutes = timeSplit[0]
+                else matchEtaIntervals = timeSplit[0]
+            })
+        
+        console.log(matchEtaIntervals)
+
+        
         
         rows.push(
             <MatchRow
