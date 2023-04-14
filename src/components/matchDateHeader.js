@@ -1,6 +1,6 @@
-export default function MatchDateHeader({ matchDate }) { 
+export default function MatchDateHeader({ matchDate, styleOptions }) { 
     return (
-        <li className='mt-10 mb-2 px-6'>
+        <li className={styleOptions}>
             {matchDate}
         </li>
     );
