@@ -4,14 +4,14 @@ export default function MatchTable({ matches, filterArr }) {
     const rows = []
 
     matches.forEach(match => {
-        if (filterArr.length > 0 && filterArr.indexOf(match.event_name) === -1) {
+        if (filterArr.length > 0 && filterArr.indexOf(match.tournament_name) === -1) {
             return;
         }
         
         rows.push(
             <MatchRow
                 match={match}
-                key={match.match_url} />
+                key={match.match_page} />
         );
     });
     
