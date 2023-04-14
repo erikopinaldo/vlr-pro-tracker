@@ -27,10 +27,16 @@ export default function MatchTable({ matches, filterArr }) {
             })
 
         // Get match date using conversion via Luxon
+        let matchDateObj
         let matchDate
+        let matchTime
 
         if (matchEtaIntervals === 'TBD') matchDate = 'LIVE'
-        else matchDate = new DateTime(Date.now()).plus(matchEtaIntervals).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+        else {
+            matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
+            matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+            matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+        }
 
         // Create date row
         match.matchDate = matchDate
@@ -47,6 +53,7 @@ export default function MatchTable({ matches, filterArr }) {
             <MatchRow
                 match={match}
                 matchDate={matchDate}
+                matchTime={matchTime}
                 key={match.match_page} />
         );
 
