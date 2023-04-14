@@ -3,7 +3,7 @@ import MatchTable from './matchTable'
 import { useState, useEffect } from 'react';
 
 export default function FilterableMatchTable() {
-    const [filterArr, setFilterArr] = useState([]);
+    const [filterArr, setFilterArr] = useState(['Champions Tour 2023: Pacific League', 'Champions Tour 2023: Americas League', 'Champions Tour 2023: EMEA League']);
     const [matches, setMatches] = useState([])
 
     useEffect(() => {
