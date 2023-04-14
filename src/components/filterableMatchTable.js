@@ -9,7 +9,6 @@ export default function FilterableMatchTable() {
     useEffect(() => {
         const getMatches = async () => {
             const data = await fetch('https://vlrggapi-two.vercel.app/match/upcoming').then(data => data.json())
-            console.log(data)
             setMatches(data.data.segments)
         }
         getMatches()
