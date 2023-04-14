@@ -1,14 +1,17 @@
 import MatchRow from './matchRow'
+import MatchDateHeader from './matchDateHeader'
 import { DateTime } from 'luxon'
 
 export default function MatchTable({ matches, filterArr }) {
     const rows = []
+    let lastDateHeader = null;
 
     matches.forEach(match => {
         if (filterArr.length > 0 && filterArr.indexOf(match.tournament_name) === -1) {
             return;
         }
 
+        // store date intervals to be added to "now" via Luxon
         let matchEtaIntervals = {}
 
         match.time_until_match
@@ -23,10 +26,22 @@ export default function MatchTable({ matches, filterArr }) {
                 else matchEtaIntervals = timeSplit[0]
             })
 
+        // Get match date using conversion via Luxon
         let matchDate
 
         if (matchEtaIntervals === 'TBD') matchDate = matchEtaIntervals
         else matchDate = new DateTime(Date.now()).plus(matchEtaIntervals).toISODate()
+
+        // Create date row
+        match.matchDate = matchDate
+        
+        if (match.matchDate !== lastDateHeader) {
+            rows.push(
+                <MatchDateHeader
+                    matchDate={matchDate}
+                    key={matchDate} />
+            );
+        }
         
         rows.push(
             <MatchRow
@@ -34,6 +49,8 @@ export default function MatchTable({ matches, filterArr }) {
                 matchDate={matchDate}
                 key={match.match_page} />
         );
+
+        lastDateHeader = matchDate
     });
     
     return (
