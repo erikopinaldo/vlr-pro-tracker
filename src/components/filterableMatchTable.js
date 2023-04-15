@@ -50,7 +50,7 @@ export default function FilterableMatchTable() {
     
     return (
         <section className='block md:w-11/12 md:grid md:grid-cols-10'>
-            <div className='block md:hidden mt-4 mb-8 flex justify-center'>
+            <div className='block md:hidden my-4 flex justify-center'>
                 <button
                     className='inline-block md:hidden mx-4'
                     onClick={openModal}>
