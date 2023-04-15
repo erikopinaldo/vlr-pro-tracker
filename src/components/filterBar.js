@@ -6,7 +6,7 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
 
     rows.push((
         <li key='reset'
-            className='md:mt-1.5 md:px-6 text-center cursor-pointer'
+            className='md:px-6 text-center cursor-pointer'
             onClick={onFilterReset()}>
             Reset filter
         </li>
