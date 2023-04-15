@@ -40,10 +40,12 @@ export default function FilterableMatchTable() {
 
     function openModal() {
         setIsOpen(true);
+        document.querySelector('body').classList.add('overflow-hidden');
     }
 
     function closeModal() {
         setIsOpen(false);
+        document.querySelector('body').classList.remove('overflow-hidden')
     }
     
     return (
