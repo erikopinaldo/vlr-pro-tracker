@@ -466,7 +466,7 @@ export default function Home() {
           {/* <h1 className='m-8 text-2xl'>
             VLR ESPORTS TRACKER
           </h1> */}
-          <img className='logo ml-6' src='logo.png' />
+          <img className='logo ml-6' src='logo.png' alt='VLR PRO TRACKER'/>
         </header>
         <main>
           <FilterableMatchTable />
