@@ -15,6 +15,20 @@ img {
   display: inline;
 }
 
+.logo {
+  width: 200px;
+  height: 34.6666666px;
+  max-height: 100%;
+}
+
+/* @media (min-width: 768px) {
+  .logo {
+    width: 200px;
+    height: 34.6666666px;
+    max-height: 100%;
+  }
+} */
+
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.75) !important;
   /* overflow: scroll; */
