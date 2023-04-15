@@ -57,7 +57,7 @@ export default function FilterableMatchTable() {
                     Filters
                 </button>
             </div>
-            <div className='flex items-center'>
+            <div className='block md:hidden flex items-center'>
                 <Modal
                     className='m-10 bg-gray-950 rounded'
                     isOpen={modalIsOpen}
