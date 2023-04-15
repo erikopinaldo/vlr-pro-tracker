@@ -43,7 +43,7 @@ export default function MatchTable({ matches, filterArr }) {
         
         if (match.matchDate !== lastDateHeader) {
             let styleOptions
-            if (rows.length === 0) styleOptions = 'mt-4 md:mt-10 mb-2 px-6'
+            if (rows.length === 0) styleOptions = 'mt-4 mb-2 px-6'
             else styleOptions = 'mt-10 mb-2 px-6'
             
             rows.push(
