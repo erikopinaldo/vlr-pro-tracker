@@ -40,10 +40,12 @@ export default function FilterableMatchTable() {
 
     function openModal() {
         setIsOpen(true);
+        document.querySelector('body').classList.add('overflow-hidden');
     }
 
     function closeModal() {
         setIsOpen(false);
+        document.querySelector('body').classList.remove('overflow-hidden')
     }
     
     return (
@@ -55,27 +57,30 @@ export default function FilterableMatchTable() {
                     Filters
                 </button>
             </div>
-            <Modal
-                className='m-10 bg-gray-950 rounded'
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Filter modal"
-            >
-                <div className='flex justify-center'>
-                    <button
-                        className='mt-4 px-6 py-2 bg-red-700 rounded'
-                        onClick={closeModal}>
-                        close
-                    </button>
-                </div>
-                
-                <FilterBar
-                    styleOptions='pb-4 px-4 bg-gray-950 overflow-hidden'
-                    matches={matches}
-                    filterArr={filterArr}
-                    onFilterClick={(e) => handleFilterClick(e.target.textContent)}
-                    onFilterReset={() => handleFilterReset} />
-            </Modal>
+            <div className='flex items-center'>
+                <Modal
+                    className='m-10 bg-gray-950 rounded'
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Filter modal"
+                >
+                    <div className='flex justify-center'>
+                        <button
+                            className='m-4 px-6 py-2 bg-red-700 rounded'
+                            onClick={closeModal}>
+                            close
+                        </button>
+                    </div>
+
+                    <FilterBar
+                        styleOptions='filterModalContent pb-4 px-4 bg-gray-950 overflow-scroll'
+                        matches={matches}
+                        filterArr={filterArr}
+                        onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                        onFilterReset={() => handleFilterReset} />
+                </Modal>
+            </div>
+
             <FilterBar
                 styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
                 matches={matches}
