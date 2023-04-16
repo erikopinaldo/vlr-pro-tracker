@@ -52,7 +52,7 @@ export default function MatchTable({ matches, filterArr }) {
                 <MatchDateHeader
                     styleOptions={styleOptions}
                     matchDate={matchDate}
-                    key={matchDate} />
+                    key={`${matchDate}-${match.match_page}`} />
             );
         }
         
