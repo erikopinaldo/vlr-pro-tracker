@@ -31,8 +31,9 @@ export default function MatchTable({ matches, filterArr }) {
         let matchDate
         let matchTime
 
-        if (matchEtaIntervals === 'LIVE') matchDate = 'LIVE'
-        else if (matchEtaIntervals === 'TBD') matchDate = 'TBD'
+        // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
+        // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
+        if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
         else {
             matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
             matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
@@ -51,7 +52,7 @@ export default function MatchTable({ matches, filterArr }) {
                 <MatchDateHeader
                     styleOptions={styleOptions}
                     matchDate={matchDate}
-                    key={matchDate} />
+                    key={`${matchDate}-${match.match_page}`} />
             );
         }
         
