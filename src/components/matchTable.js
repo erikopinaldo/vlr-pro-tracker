@@ -31,8 +31,6 @@ export default function MatchTable({ matches, filterArr }) {
         let matchDate
         let matchTime
 
-        console.log(matchEtaIntervals)
-
         // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
         // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
         if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
