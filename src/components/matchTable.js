@@ -32,6 +32,7 @@ export default function MatchTable({ matches, filterArr }) {
         let matchTime
 
         if (matchEtaIntervals === 'LIVE') matchDate = 'LIVE'
+        else if (matchEtaIntervals === 'TBD') matchDate = 'TBD'
         else {
             matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
             matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
