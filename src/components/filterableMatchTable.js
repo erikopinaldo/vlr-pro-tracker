@@ -17,7 +17,7 @@ export default function FilterableMatchTable() {
         }
         setTimeout(() => {
             getMatches()
-        }, "4000")
+        }, "1000")
         
     }, [])
 
