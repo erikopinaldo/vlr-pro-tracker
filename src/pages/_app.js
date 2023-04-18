@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }) {
 
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" key='twitter-card' />
-        <meta property="twitter:domain" content="www.post-plant.com/" key='twitter-domain' />
+        <meta property="twitter:domain" content="www.post-plant.com" key='twitter-domain' />
         <meta property="twitter:url" content="https://www.post-plant.com/" key='twitter-url' />
         <meta name="twitter:title" content="Pro Valorant Match Schedules" key='twitter-title' />
         <meta name="twitter:description" content="View upcoming pro Valorant matches" key='twitter-description' />
