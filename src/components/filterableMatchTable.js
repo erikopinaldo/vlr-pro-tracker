@@ -15,7 +15,10 @@ export default function FilterableMatchTable() {
             const data = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
             setMatches(data.data.segments)
         }
-        getMatches()
+        setTimeout(() => {
+            getMatches()
+        }, "4000")
+        
     }, [])
 
     function handleFilterClick(eventName) {
@@ -81,15 +84,34 @@ export default function FilterableMatchTable() {
                 </Modal>
             </div>
 
-            <FilterBar
-                styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
-                matches={matches}
-                filterArr={filterArr}
-                onFilterClick={(e) => handleFilterClick(e.target.textContent)}
-                onFilterReset={() => handleFilterReset} />
-            <MatchTable
-                matches={matches}
-                filterArr={filterArr} />
+            {matches.length === 0 ? (
+                // Loading skeleton
+                <>
+                    <div className="hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 rounded-full animate-pulse">
+                        <div className='h-8 mt-8 mb-4 p-10 py-2 md:px-6 rounded-full bg-gray-800 rounded-full'></div>
+                        <div className='h-8 my-4 p-8 py-2 md:px-6 rounded-full bg-gray-800 rounded-full'></div>
+                        <div className='h-8 my-4 p-8 py-2 md:px-6 rounded-full bg-gray-800 rounded-full'></div>
+                    </div>
+                    <div className='px-4 py-0 md:py-2 md:col-span-7 animate-pulse'>
+                        <div className='h-16 flex justify-between items-center mt-12 mb-4 p-6 md:px-16 rounded bg-sky-950'></div>
+                        <div className='h-16 flex justify-between items-center my-4 p-6 md:px-16 rounded bg-sky-950'></div>
+                        <div className='h-16 flex justify-between items-center my-4 p-6 md:px-16 rounded bg-sky-950'></div>
+                    </div>
+                </>
+            ) : (
+                    // Actual content
+                    <>
+                        <FilterBar
+                            styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
+                            matches={matches}
+                            filterArr={filterArr}
+                            onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                            onFilterReset={() => handleFilterReset} />
+                        <MatchTable
+                            matches={matches}
+                            filterArr={filterArr} />
+                    </>
+            )}
         </section>
     );
 }
