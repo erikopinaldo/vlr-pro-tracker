@@ -7,7 +7,7 @@ Modal.setAppElement('#__next');
 
 export default function FilterableMatchTable() {
     // Hard-coded default filters
-    const [filterArr, setFilterArr] = useState(['Champions Tour 2023: Pacific League', 'Champions Tour 2023: Americas League', 'Champions Tour 2023: EMEA League']);
+    const [filterArr, setFilterArr] = useState([]);
     const [matches, setMatches] = useState([])
 
     useEffect(() => {
