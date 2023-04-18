@@ -15,7 +15,10 @@ export default function FilterableMatchTable() {
             const data = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
             setMatches(data.data.segments)
         }
-        getMatches()
+        setTimeout(() => {
+            getMatches()
+        }, "1000")
+        
     }, [])
 
     function handleFilterClick(eventName) {
@@ -50,46 +53,64 @@ export default function FilterableMatchTable() {
     
     return (
         <section className='block md:w-11/12 md:grid md:grid-cols-10'>
-            <div className='block md:hidden my-4 flex justify-center'>
-                <button
-                    className='inline-block md:hidden mx-4'
-                    onClick={openModal}>
-                    Filters
-                </button>
-            </div>
-            <div className='block md:hidden flex items-center'>
-                <Modal
-                    className='m-10 bg-gray-950 rounded'
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Filter modal"
-                >
-                    <div className='flex justify-center'>
-                        <button
-                            className='m-4 px-6 py-2 bg-red-700 rounded'
-                            onClick={closeModal}>
-                            close
-                        </button>
+            {matches.length === 0 ? (
+                // Loading skeleton
+                <>
+                    <div className="hidden md:block mt-8 px-4 py-2 bg-gray-950 md:col-span-2 rounded-full animate-pulse">
+                        <div className='h-8 my-4 rounded-full bg-gray-800 rounded-full'></div>
+                        <div className='h-8 my-4 rounded-full bg-gray-800 rounded-full'></div>
+                        <div className='h-8 my-4 rounded-full bg-gray-800 rounded-full'></div>
                     </div>
+                    <div className='mt-24 md:mt-12 px-4 py-0 md:py-2 md:col-span-7 animate-pulse'>
+                        <div className='h-24 md:h-16 mb-4 rounded bg-sky-950'></div>
+                        <div className='h-24 md:h-16 my-4 rounded bg-sky-950'></div>
+                        <div className='h-24 md:h-16 my-4 rounded bg-sky-950'></div>
+                    </div>
+                </>
+            ) : (
+                    // Actual content
+                    <>
+                        <div className='block md:hidden my-4 flex justify-center'>
+                            <button
+                                className='inline-block md:hidden mx-4'
+                                onClick={openModal}>
+                                Filters
+                            </button>
+                        </div>
+                        <div className='block md:hidden flex items-center'>
+                            <Modal
+                                className='m-10 bg-gray-950 rounded'
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Filter modal"
+                            >
+                                <div className='flex justify-center'>
+                                    <button
+                                        className='m-4 px-6 py-2 bg-red-700 rounded'
+                                        onClick={closeModal}>
+                                        close
+                                    </button>
+                                </div>
 
-                    <FilterBar
-                        styleOptions='filterModalContent pb-4 px-4 bg-gray-950 overflow-scroll'
-                        matches={matches}
-                        filterArr={filterArr}
-                        onFilterClick={(e) => handleFilterClick(e.target.textContent)}
-                        onFilterReset={() => handleFilterReset} />
-                </Modal>
-            </div>
-
-            <FilterBar
-                styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
-                matches={matches}
-                filterArr={filterArr}
-                onFilterClick={(e) => handleFilterClick(e.target.textContent)}
-                onFilterReset={() => handleFilterReset} />
-            <MatchTable
-                matches={matches}
-                filterArr={filterArr} />
+                                <FilterBar
+                                    styleOptions='filterModalContent pb-4 px-4 bg-gray-950 overflow-scroll'
+                                    matches={matches}
+                                    filterArr={filterArr}
+                                    onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                                    onFilterReset={() => handleFilterReset} />
+                            </Modal>
+                        </div>
+                        <FilterBar
+                            styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
+                            matches={matches}
+                            filterArr={filterArr}
+                            onFilterClick={(e) => handleFilterClick(e.target.textContent)}
+                            onFilterReset={() => handleFilterReset} />
+                        <MatchTable
+                            matches={matches}
+                            filterArr={filterArr} />
+                    </>
+            )}
         </section>
     );
 }
