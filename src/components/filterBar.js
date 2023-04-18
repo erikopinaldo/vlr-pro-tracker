@@ -12,7 +12,7 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
         </li>
     ))
 
-    const sortedMatches = matches.sort((a, b) => {
+    const sortedMatches = matches.concat().sort((a, b) => {
         if (a.tournament_name < b.tournament_name) {
             return -1;
         }
