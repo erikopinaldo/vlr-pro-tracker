@@ -24,7 +24,6 @@ export default function FilterableMatchTable() {
     // Remove hard-coded filters from state if no matches exist in current API fetch
     useEffect(() => {
         if (matches.length > 0) {
-            console.log(matches)
             const matchTournaments = matches.map(match => match.tournament_name)
 
             let nextFilter
