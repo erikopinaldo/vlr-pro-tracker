@@ -12,7 +12,17 @@ export default function FilterBar({ matches, filterArr, onFilterClick, onFilterR
         </li>
     ))
 
-    matches.forEach(match => {
+    const sortedMatches = matches.concat().sort((a, b) => {
+        if (a.tournament_name < b.tournament_name) {
+            return -1;
+        }
+        if (a.tournament_name > b.tournament_name) {
+            return 1;
+        }
+        return 0;
+    })
+
+    sortedMatches.forEach(match => {
         const isActive = filterArr.includes(match.tournament_name)
 
         if (!events.includes(match.tournament_name)) {

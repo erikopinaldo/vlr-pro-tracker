@@ -7,7 +7,7 @@ Modal.setAppElement('#__next');
 
 export default function FilterableMatchTable() {
     // Hard-coded default filters
-    const [filterArr, setFilterArr] = useState(['Champions Tour 2023: Pacific League', 'Champions Tour 2023: Americas League', 'Champions Tour 2023: EMEA League']);
+    const [filterArr, setFilterArr] = useState([]);
     const [matches, setMatches] = useState([])
 
     useEffect(() => {
@@ -20,6 +20,22 @@ export default function FilterableMatchTable() {
         }, "1000")
         
     }, [])
+
+    // Remove hard-coded filters from state if no matches exist in current API fetch
+    useEffect(() => {
+        if (matches.length > 0) {
+            const matchTournaments = matches.map(match => match.tournament_name)
+
+            let nextFilter
+
+            filterArr.forEach(filter => {
+                if (!matchTournaments.includes(filter)) {
+                    nextFilter = filterArr.filter(item => item !== filter)
+                    setFilterArr(nextFilter)
+                }
+            })
+        }
+    })
 
     function handleFilterClick(eventName) {
         console.log(eventName)
