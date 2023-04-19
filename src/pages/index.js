@@ -11,7 +11,7 @@ export default function Home() {
     <div className='md:flex md:justify-center'>
       <div className='md:w-11/12'>
         <header className='h-20 flex items-center'>
-          <img className='logo ml-8 mt-2' src='logo.svg' alt='VLR PRO TRACKER'/>
+          <img className='logo ml-8 mt-2' src='logo.svg' alt='POSTPLANT'/>
         </header>
         <main>
           <FilterableMatchTable />
