@@ -2,7 +2,7 @@ import MatchRow from './matchRow'
 import MatchDateHeader from './matchDateHeader'
 import { DateTime } from 'luxon'
 
-export default function MatchTable({ matches, filterArr }) {
+export default function MatchTable({ matches, matchView, filterArr }) {
     const rows = []
     let lastDateHeader = null;
 
@@ -12,13 +12,17 @@ export default function MatchTable({ matches, filterArr }) {
         }
 
         // store date intervals to be added to "now" via Luxon
+        let matchTimeRelative
         let matchEtaIntervals = {}
 
-        match.time_until_match
+        if (matchView === 'upcoming') matchTimeRelative = match.time_until_match
+        else  matchTimeRelative = match.time_completed
+
+        matchTimeRelative
             .split(' ')
-            .filter(element => element !== 'from' && element !== 'now')
+            .filter(element => element !== 'ago')
             .forEach(time => {
-                
+
                 const timeSplit = time.match(/[a-zA-Z]+|[0-9]+/g)
 
                 if (timeSplit[1] === 'w') matchEtaIntervals.weeks = timeSplit[0]
@@ -63,6 +67,7 @@ export default function MatchTable({ matches, filterArr }) {
                 match={match}
                 matchDate={matchDate}
                 matchTime={matchTime}
+                matchTimeRelative={matchTimeRelative}
                 key={match.match_page} />
         );
 
