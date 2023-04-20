@@ -1,6 +1,6 @@
 export default function MatchTeams({ teamOneName, teamTwoName }) {
     return (
-        <div className="basis-2/5 mx-4">
+        <div className="basis-3/6 md:basis-2/6">
             <div>
                 <span>{teamOneName}</span>
             </div>
