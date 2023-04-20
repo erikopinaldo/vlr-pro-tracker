@@ -68,7 +68,7 @@ export default function FilterableMatchTable() {
     }
     
     return (
-        <section className='block md:w-11/12 md:grid md:grid-cols-10'>
+        <section className='block my-6 md:my-0 md:w-11/12 md:grid md:grid-cols-10'>
             {matches.length === 0 ? (
                 // Loading skeleton
                 <>
