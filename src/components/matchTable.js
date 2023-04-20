@@ -2,7 +2,7 @@ import MatchRow from './matchRow'
 import MatchDateHeader from './matchDateHeader'
 import { DateTime } from 'luxon'
 
-export default function MatchTable({ matches, filterArr }) {
+export default function MatchTable({ matches, matchView, filterArr }) {
     const rows = []
     let lastDateHeader = null;
 
@@ -12,34 +12,54 @@ export default function MatchTable({ matches, filterArr }) {
         }
 
         // store date intervals to be added to "now" via Luxon
+        let matchTimeRelative
         let matchEtaIntervals = {}
+        const getMatchDateObj = (time) => {
+            time
+                .split(' ')
+                .filter(element => element !== 'from' && element !== 'now' && element !== 'ago')
+                .forEach(time => {
 
-        match.time_until_match
-            .split(' ')
-            .filter(element => element !== 'from' && element !== 'now')
-            .forEach(time => {
-                
-                const timeSplit = time.match(/[a-zA-Z]+|[0-9]+/g)
+                    const timeSplit = time.match(/[a-zA-Z]+|[0-9]+/g)
 
-                if (timeSplit[1] === 'w') matchEtaIntervals.weeks = timeSplit[0]
-                else if (timeSplit[1] === 'd') matchEtaIntervals.days = timeSplit[0]
-                else if (timeSplit[1] === 'h') matchEtaIntervals.hours = timeSplit[0]
-                else if (timeSplit[1] === 'm') matchEtaIntervals.minutes = timeSplit[0]
-                else matchEtaIntervals = timeSplit[0]
-            })
+                    if (timeSplit[1] === 'w') matchEtaIntervals.weeks = timeSplit[0]
+                    else if (timeSplit[1] === 'd') matchEtaIntervals.days = timeSplit[0]
+                    else if (timeSplit[1] === 'h') matchEtaIntervals.hours = timeSplit[0]
+                    else if (timeSplit[1] === 'm') matchEtaIntervals.minutes = timeSplit[0]
+                    else matchEtaIntervals = timeSplit[0]
+                })
+        }
 
         // Get match date using conversion via Luxon
         let matchDateObj
         let matchDate
         let matchTime
 
-        // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
-        // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
-        if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+        if (matchView === 'upcoming') {
+            matchTimeRelative = match.time_until_match
+            getMatchDateObj(match.time_until_match)
+
+            // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
+            // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
+            if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+            else {
+                matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
+                matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            }
+        }
         else {
-            matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
-            matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-            matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            matchTimeRelative = match.time_completed
+            getMatchDateObj(match.time_completed)
+
+            // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
+            // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
+            if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+            else {
+                matchDateObj = new DateTime(Date.now()).minus(matchEtaIntervals)
+                matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            }
         }
 
         // Create date row
@@ -63,6 +83,7 @@ export default function MatchTable({ matches, filterArr }) {
                 match={match}
                 matchDate={matchDate}
                 matchTime={matchTime}
+                matchTimeRelative={matchTimeRelative}
                 key={match.match_page} />
         );
 
