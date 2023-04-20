@@ -5,22 +5,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#__next');
 
-export default function FilterableMatchTable() {
-    // Hard-coded default filters
-    const [filterArr, setFilterArr] = useState([]);
-    const [matches, setMatches] = useState([])
-
-    useEffect(() => {
-        const getMatches = async () => {
-            const data = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
-            setMatches(data.data.segments)
-        }
-        setTimeout(() => {
-            getMatches()
-        }, "1000")
-        
-    }, [])
-
+export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr }) {
     // Remove hard-coded filters from state if no matches exist in current API fetch
     useEffect(() => {
         if (matches.length > 0) {
@@ -123,6 +108,7 @@ export default function FilterableMatchTable() {
                             onFilterClick={(e) => handleFilterClick(e.target.textContent)}
                             onFilterReset={() => handleFilterReset} />
                         <MatchTable
+                            matchView={matchView}
                             matches={matches}
                             filterArr={filterArr} />
                     </>
