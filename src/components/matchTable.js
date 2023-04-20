@@ -30,27 +30,36 @@ export default function MatchTable({ matches, matchView, filterArr }) {
                 })
         }
 
-        if (matchView === 'upcoming') {
-            matchTimeRelative = match.time_until_match
-            getMatchDateObj(match.time_until_match)
-        }
-        else {
-            matchTimeRelative = match.time_completed
-            getMatchDateObj(match.time_completed)
-        }
-
         // Get match date using conversion via Luxon
         let matchDateObj
         let matchDate
         let matchTime
 
-        // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
-        // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
-        if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+        if (matchView === 'upcoming') {
+            matchTimeRelative = match.time_until_match
+            getMatchDateObj(match.time_until_match)
+
+            // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
+            // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
+            if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+            else {
+                matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
+                matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            }
+        }
         else {
-            matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
-            matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-            matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            matchTimeRelative = match.time_completed
+            getMatchDateObj(match.time_completed)
+
+            // Matches with established ETAs are objects -- values are ETA intervals to be added. For example: {"days": "2", "hours": "15"}
+            // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
+            if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
+            else {
+                matchDateObj = new DateTime(Date.now()).minus(matchEtaIntervals)
+                matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+            }
         }
 
         // Create date row
