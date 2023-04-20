@@ -14,8 +14,6 @@ export default function MatchTable({ matches, filterArr }) {
         // store date intervals to be added to "now" via Luxon
         let matchEtaIntervals = {}
 
-        console.log(match.time_until_match)
-
         match.time_until_match
             .split(' ')
             .filter(element => element !== 'from' && element !== 'now')
@@ -23,16 +21,11 @@ export default function MatchTable({ matches, filterArr }) {
                 
                 const timeSplit = time.match(/[a-zA-Z]+|[0-9]+/g)
 
-                console.log(time)
-                console.log(timeSplit)
-
                 if (timeSplit[1] === 'w') matchEtaIntervals.weeks = timeSplit[0]
                 else if (timeSplit[1] === 'd') matchEtaIntervals.days = timeSplit[0]
                 else if (timeSplit[1] === 'h') matchEtaIntervals.hours = timeSplit[0]
                 else if (timeSplit[1] === 'm') matchEtaIntervals.minutes = timeSplit[0]
                 else matchEtaIntervals = timeSplit[0]
-
-                console.log(matchEtaIntervals)
             })
 
         // Get match date using conversion via Luxon
