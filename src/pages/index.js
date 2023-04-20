@@ -9,8 +9,36 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {  
   const [matchView, setMatchView] = useState('upcoming')
+  const [vlrData, setVlrData] = useState([])
+  const [matches, setMatches] = useState([])
+  const [filterArr, setFilterArr] = useState([]);
+
+  const getVlrData = async () => {
+    const upcomingData = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
+    const completedData = await fetch('https://vlrggapi2.vercel.app/match/results').then(data => data.json())
+
+    const newVlrData = [upcomingData.data.segments, completedData.data.segments]
+    setVlrData(newVlrData)
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      getVlrData()
+    }, "1000")
+  }, [])
+
+  useEffect(() => {
+    if (vlrData.length > 0) {
+      if (matchView === 'upcoming') setMatches(vlrData[0])
+      else if (matchView === 'completed') setMatches(vlrData[1])
+    }
+  })
 
   function handleViewClick(viewName) {
+    if (viewName.toLowerCase() === 'upcoming') setMatches(vlrData[0])
+    else if (viewName.toLowerCase() === 'completed') setMatches(vlrData[1])
+
+    setFilterArr([])
     setMatchView(viewName.toLowerCase())
   }
 
@@ -24,7 +52,12 @@ export default function Home() {
           matchView={matchView}
           onViewClick={(e) => handleViewClick(e.target.textContent)} />
         <main>
-          <FilterableMatchTable />
+          <FilterableMatchTable
+            matchView={matchView}
+            vlrData={vlrData}
+            matches={matches}
+            filterArr={filterArr}
+            setFilterArr={setFilterArr} />
         </main>
       </div>
     </div>
