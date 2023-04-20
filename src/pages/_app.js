@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({ Component, pageProps }) {
   return (
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:description" content="View upcoming pro Valorant matches" key='twitter-description' />
       </Head>
       <Component {...pageProps} />
+      <Analytics />
     </>
   );
 }
