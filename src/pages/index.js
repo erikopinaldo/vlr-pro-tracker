@@ -12,9 +12,9 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {  
   const [matchView, setMatchView] = useState('upcoming')
   const [vlrData, setVlrData] = useState([])
-  const [matches, setMatches] = useState([])
   const [filterArr, setFilterArr] = useState([]);
 
+  // Get VLR data from API
   const getVlrData = async () => {
     const upcomingData = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
     const completedData = await fetch('https://vlrggapi2.vercel.app/match/results').then(data => data.json())
@@ -24,21 +24,22 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      getVlrData()
-    }, "1000")
+    getVlrData()
   }, [])
 
-  useEffect(() => {
-    if (vlrData.length > 0) {
-      if (matchView === 'upcoming') setMatches(vlrData[0])
-      else if (matchView === 'completed') setMatches(vlrData[1])
-    }
-  })
+  // Set matches data once VLR data is fetched
+  let matches = []
 
+  if (vlrData.length > 0) {
+    if (matchView === 'upcoming') matches = vlrData[0]
+    else if (matchView === 'completed') matches = vlrData[1]
+  }
+
+  // Change matches data based on the tab that user clicks
+  // Reset selected filters when user switches tabs
   function handleViewClick(viewName) {
-    if (viewName.toLowerCase() === 'upcoming') setMatches(vlrData[0])
-    else if (viewName.toLowerCase() === 'completed') setMatches(vlrData[1])
+    if (viewName.toLowerCase() === 'upcoming') matches = vlrData[0]
+    else if (viewName.toLowerCase() === 'completed') matches = vlrData[1]
 
     setFilterArr([])
     setMatchView(viewName.toLowerCase())
