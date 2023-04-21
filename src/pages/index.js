@@ -3,6 +3,8 @@ import MatchTable from '../components/matchTable'
 import FilterBar from '../components/filterBar'
 import FilterableMatchTable from '../components/filterableMatchTable'
 import NavBar from '../components/navbar'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 import { useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -58,6 +60,7 @@ export default function Home() {
             matches={matches}
             filterArr={filterArr}
             setFilterArr={setFilterArr} />
+          <Tooltip id="event-name-tooltip" />
         </main>
       </div>
     </div>
