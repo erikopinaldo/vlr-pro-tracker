@@ -11,13 +11,12 @@ export default function filterItem({ eventName, isActive, onFilterClick }) {
             className={options}
             onClick={onFilterClick()}>
             <a
-                data-tooltip-id="event-name-tooltip truncate"
+                className="truncate"
+                data-tooltip-id="event-name-tooltip"
                 data-tooltip-content={eventName}
                 data-tooltip-place="top"
             >
-                <div className="truncate">
-                    {eventName}
-                </div>
+                {eventName}
             </a>
         </li>
     );
