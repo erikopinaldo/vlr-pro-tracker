@@ -73,6 +73,7 @@ export default function MatchTable({ matches, matchView, filterArr }) {
             
             rows.push(
                 <MatchDateHeader
+                    suppressHydrationWarning={true}
                     styleOptions={styleOptions}
                     matchDate={matchDate}
                     key={`${matchDate}-${match.match_page}`} />
