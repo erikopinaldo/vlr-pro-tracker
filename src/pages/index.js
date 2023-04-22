@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 const inter = Inter({ subsets: ['latin'] })
 
 export async function getServerSideProps() {
-  const upcomingData = await fetch('https://vlrggapi2-iu7oufw4y-erikopinaldo.vercel.app/match/upcoming').then(data => data.json())
-  const completedData = await fetch('https://vlrggapi2-iu7oufw4y-erikopinaldo.vercel.app/match/results').then(data => data.json())
+  const upcomingData = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
+  const completedData = await fetch('https://vlrggapi2.vercel.app/match/results').then(data => data.json())
 
   const newVlrData = [upcomingData.data.segments, completedData.data.segments]
 
