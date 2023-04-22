@@ -45,7 +45,7 @@ export default function MatchTable({ matches, matchView, filterArr }) {
             else {
                 matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals)
                 matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+                // matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
             }
         }
         else {
@@ -58,12 +58,13 @@ export default function MatchTable({ matches, matchView, filterArr }) {
             else {
                 matchDateObj = new DateTime(Date.now()).minus(matchEtaIntervals)
                 matchDate = matchDateObj.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-                matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
+                // matchTime = matchDateObj.toLocaleString(DateTime.TIME_SIMPLE)
             }
         }
 
         // Create date row
         match.matchDate = matchDate
+        matchTime = match.abs_match_time
         
         if (match.matchDate !== lastDateHeader) {
             let styleOptions
