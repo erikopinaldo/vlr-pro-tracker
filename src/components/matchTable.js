@@ -83,11 +83,33 @@ export default function MatchTable({ matches, matchView, filterArr }) {
             // Matches without established ETAs are strings. Current possible values are: LIVE, UPCOMING, TBD
             if (typeof matchEtaIntervals === 'string') matchDate = matchEtaIntervals
             else {
-                matchDateObj = new DateTime(Date.now()).minus(matchEtaIntervals).setZone('America/Toronto').toObject()
+                // VLR API only provides times in Eastern, so to do a comparison, we need to convert the relative time of the match to Eastern as well
+                matchDateObj = new DateTime(Date.now()).plus(matchEtaIntervals).setZone('America/Toronto').toObject()
+
+                // Extract the hours and minutes from the absolute time provided by the API
                 matchTimeArr = match.abs_time_completed.replace(/[a-zA-Z]/g, '').split(':')
-                matchDateObj.hour = matchTimeArr[0]
-                matchDateObj.minute = matchTimeArr[1]
-                console.log(DateTime.fromObject(matchDateObj).setZone('local'))
+
+                // Replace the relatively calculated match time with the absolute match time provided by the API
+
+                // Hour value to be put into matchDateObj
+                if (match.abs_time_completed.includes('AM') && !match.abs_time_completed.includes('12:')) {
+                    matchDateObj.hour = matchTimeArr[0]
+                }
+                else if (match.abs_time_completed.includes('PM') && !match.abs_time_completed.includes('12:')) {
+                    matchDateObj.hour = Number(Number(matchTimeArr[0]) + 12)
+                }
+                else if (match.abs_time_completed.includes('12:00 AM')) {
+                    matchDateObj.hour = 0
+                }
+                else if (match.abs_time_completed.includes('12:00 PM')) {
+                    matchDateObj.hour = 12
+                }
+
+                // Minute value to be put into matchDateObj
+                matchDateObj.minute = Number(matchTimeArr[1])
+
+
+                // Convert to local time
                 matchDate = DateTime.fromObject(matchDateObj, { zone: 'America/Toronto' }).setZone('local').toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
                 matchTime = DateTime.fromObject(matchDateObj, { zone: 'America/Toronto' }).setZone('local').toLocaleString(DateTime.TIME_SIMPLE)
             }
