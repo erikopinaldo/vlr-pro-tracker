@@ -9,23 +9,22 @@ import { useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {  
-  const [matchView, setMatchView] = useState('upcoming')
-  const [vlrData, setVlrData] = useState([])
-  const [filterArr, setFilterArr] = useState([]);
+export async function getServerSideProps() {
+  const upcomingData = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
+  const completedData = await fetch('https://vlrggapi2.vercel.app/match/results').then(data => data.json())
 
-  // Get VLR data from API
-  const getVlrData = async () => {
-    const upcomingData = await fetch('https://vlrggapi2.vercel.app/match/upcoming').then(data => data.json())
-    const completedData = await fetch('https://vlrggapi2.vercel.app/match/results').then(data => data.json())
+  const newVlrData = [upcomingData.data.segments, completedData.data.segments]
 
-    const newVlrData = [upcomingData.data.segments, completedData.data.segments]
-    setVlrData(newVlrData)
+  return {
+    props: {
+      vlrData: newVlrData
+    }
   }
+}
 
-  useEffect(() => {
-    getVlrData()
-  }, [])
+export default function Home({ vlrData }) {
+  const [matchView, setMatchView] = useState('upcoming')
+  const [filterArr, setFilterArr] = useState([]);
 
   // Set matches data once VLR data is fetched
   let matches = []

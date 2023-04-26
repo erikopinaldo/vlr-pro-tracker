@@ -74,6 +74,10 @@ export default function MatchTable({ matches, matchView, filterArr }) {
             // Convert to client's local time
             matchDate = DateTime.fromObject(luxonMatchDateObj, { zone: 'America/Toronto' }).setZone('local').toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
             matchTime = DateTime.fromObject(luxonMatchDateObj, { zone: 'America/Toronto' }).setZone('local').toLocaleString(DateTime.TIME_SIMPLE)
+
+            // It seems using .toLocaleString() returns different formats of AM/PM if it's rendered on the server vs. the client -- here we make a decision to force one format for both environments 
+            if (matchTime.includes('a.m.')) matchTime = matchTime.replace('a.m.', 'AM')
+            else if (matchTime.includes('p.m.')) matchTime = matchTime.replace('p.m.', 'PM')
         } 
 
         // Create date header 
