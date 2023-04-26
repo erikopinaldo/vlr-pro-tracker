@@ -8,7 +8,7 @@ export default function MatchTime({ matchTime, matchEta }) {
                 <span suppressHydrationWarning={true}>{matchTime}</span>
             </div>
             <div className={styleOptions}>
-                <span>{matchEta}</span>
+                <span suppressHydrationWarning={true}>{matchEta}</span>
             </div>
         </div>
     );
