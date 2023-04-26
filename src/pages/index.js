@@ -6,10 +6,15 @@ import NavBar from '../components/navbar'
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {  
+  // Query params has this shape: /?filters=Champions+Tour+2023%3A+Americas+League,Champions+Tour+2023%3A+EMEA+League,Champions+Tour+2023%3A+Pacific+League,Challengers+League%3A+North+America
+  const router = useRouter();
+  const { filters } = router.query
+
   const [matchView, setMatchView] = useState('upcoming')
   const [vlrData, setVlrData] = useState([])
   const [filterArr, setFilterArr] = useState([]);
@@ -24,8 +29,9 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (filters) setFilterArr(filters.split(','))
     getVlrData()
-  }, [])
+  }, [filters])
 
   // Set matches data once VLR data is fetched
   let matches = []
