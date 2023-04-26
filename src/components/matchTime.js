@@ -5,10 +5,10 @@ export default function MatchTime({ matchTime, matchEta }) {
     return (
         <div className='basis-1/6 mr-10'>
             <div>
-                <span suppressHydrationWarning={true}>{(typeof window !== undefined) && matchTime}</span>
+                <span suppressHydrationWarning={true}>{matchTime}</span>
             </div>
             <div className={styleOptions}>
-                <span suppressHydrationWarning={true}>{(typeof window !== undefined) && matchEta}</span>
+                <span suppressHydrationWarning={true}>{matchEta}</span>
             </div>
         </div>
     );
