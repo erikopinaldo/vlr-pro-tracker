@@ -15,12 +15,21 @@ export default function MatchTable({ matches, matchView, filterArr }) {
         const matchTimeRelative = match.time_until_match || match.time_completed // string from API -- can be 'X time ago' or 'X time from now'
         const matchTimeAbs = match.abs_match_time || match.abs_time_completed // string from API -- can be 'X:XX AM/PM'
         
-        let matchDateDiffObj = {} // contains units of time extracted from matchTimeRelative -- used in Luxon's .plus() or .minus() methods to calculate a date X time from Date.now()
+        const matchDateDiffObj = {} // contains units of time extracted from matchTimeRelative -- used in Luxon's .plus() or .minus() methods to calculate a date X time from Date.now()
         let luxonMatchDateObj // Luxon date object converted from matchDateDiffObj, which will be converted to a local string for the client
         let matchDate // final match date given to the MatchRow component 
         let matchTime // final match time given to the MatchRow component
 
-        const buildDateDiffObj = (matchTimeRelative) => {
+        // If relative match time is a single word string (i.e. 'LIVE', 'UPCOMING', 'TBD'), assign it to the matchDate value 
+        // In this scenario, no value is given to matchTime and it is not rendered
+        if ((matchTimeRelative.split(' ').length === 1)) {
+            matchDate = match.time_until_match || match.time_completed
+        }
+
+        // If relative match time is a known set of intervals (i.e. 'X time from now'), use it build the luxonMatchDateObj and calculate final matchDate/matchTime
+        else {
+
+            // Build the matchDateDiffObj object with units of time
             matchTimeRelative
                 .split(' ')
                 .filter(element => element !== 'from' && element !== 'now' && element !== 'ago')
@@ -33,28 +42,14 @@ export default function MatchTable({ matches, matchView, filterArr }) {
                     else if (timeSplit[1] === 'h') matchDateDiffObj.hours = timeSplit[0]
                     else if (timeSplit[1] === 'm') matchDateDiffObj.minutes = timeSplit[0]
                 })
-        }
-        
-        const buildLuxonMatchDateObj = (matchView) => {         
+
+            // Build the luxonMatchDateObj object
             if (matchView === 'upcoming') {
-                buildDateDiffObj(matchTimeRelative)
                 luxonMatchDateObj = new DateTime(Date.now()).plus(matchDateDiffObj).setZone('America/Toronto').toObject()
             }
             else if (matchView === 'completed') {
-                buildDateDiffObj(matchTimeRelative)
                 luxonMatchDateObj = new DateTime(Date.now()).minus(matchDateDiffObj).setZone('America/Toronto').toObject()
-            }   
-        }
-
-        // If relative match time is a single word string (i.e. 'LIVE', 'UPCOMING', 'TBD'), assign it to the matchDate value 
-        // In this scenario, no value is given to matchTime and it is not rendered
-        if ((matchTimeRelative.split(' ').length === 1)) {
-            matchDate = match.time_until_match || match.time_completed
-        }
-
-        // If relative match time is a known set of intervals (i.e. 'X time from now'), use it build the luxonMatchDateObj and calculate final matchDate/matchTime
-        else {
-            buildLuxonMatchDateObj(matchView)
+            } 
 
             // Array created by splitting matchTimeAbs by the colon character -- separates hour and minute values
             const matchTimeArr = matchTimeAbs.replace(/[a-zA-Z]/g, '').split(':') 
