@@ -30,11 +30,12 @@ export default function Home() {
 
   useEffect(() => {
     if (filters) setFilterArr(filters.split(','))
+    getVlrData()
   }, [filters])
 
-  useEffect(() => {
-    getVlrData()
-  })
+  // useEffect(() => {
+  //   getVlrData()
+  // }, [])
 
   // Set matches data once VLR data is fetched
   let matches = []
