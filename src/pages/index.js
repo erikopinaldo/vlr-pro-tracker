@@ -32,7 +32,7 @@ export default function Home() {
   // https://nextjs.org/docs/api-reference/next/router#router-object
   useEffect(() => {
     if (!router.isReady) return;
-    setFilterArr(filters.split(','))
+    if (filters) setFilterArr(filters.split(','))
   }, [router.isReady])
 
   useEffect(() => {
