@@ -28,9 +28,12 @@ export default function Home() {
     setVlrData(newVlrData)
   }
 
+  // Only set filterArr when router fields (i.e. query string) are updated client-side
+  // https://nextjs.org/docs/api-reference/next/router#router-object
   useEffect(() => {
-    if (filters) setFilterArr(filters.split(','))
-  }, [])
+    if (!router.isReady) return;
+    setFilterArr(filters.split(','))
+  }, [router.isReady])
 
   useEffect(() => {
     getVlrData()
