@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#__next');
 
-export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr, isCopied, handleCopyClick }) {
+export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr, isCopied, handleCopyClick, setIsCopied }) {
     // Remove hard-coded filters from state if no matches exist in current API fetch
     useEffect(() => {
         if (matches.length > 0) {
