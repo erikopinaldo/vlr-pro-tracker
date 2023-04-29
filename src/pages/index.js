@@ -18,6 +18,7 @@ export default function Home() {
   const [matchView, setMatchView] = useState('upcoming')
   const [vlrData, setVlrData] = useState([])
   const [filterArr, setFilterArr] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
 
   // Get VLR data from API
   const getVlrData = async () => {
@@ -55,6 +56,12 @@ export default function Home() {
 
     setFilterArr([])
     setMatchView(viewName.toLowerCase())
+    setIsCopied(false)
+  }
+
+  function handleCopyClick() {
+    navigator.clipboard.writeText(filterArr.length > 0 ? 'https://www.post-plant.com?filters=' + encodeURI(filterArr.join(',')) : 'https://www.post-plant.com')
+    setIsCopied(true)
   }
 
   return (
@@ -72,7 +79,9 @@ export default function Home() {
             vlrData={vlrData}
             matches={matches}
             filterArr={filterArr}
-            setFilterArr={setFilterArr} />
+            setFilterArr={setFilterArr}
+            isCopied={isCopied}
+            handleCopyClick={handleCopyClick} />
           <Tooltip id="event-name-tooltip" />
         </main>
       </div>
