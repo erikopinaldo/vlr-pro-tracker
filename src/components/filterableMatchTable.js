@@ -6,6 +6,13 @@ import Modal from 'react-modal';
 Modal.setAppElement('#__next');
 
 export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr }) {
+    const [isCopied, setIsCopied] = useState(false);
+
+    function handleCopyClick() {
+        navigator.clipboard.writeText(filterArr.length > 0 ? 'https://www.post-plant.com?filters=' + encodeURI(filterArr.join(',')) : 'https://www.post-plant.com')
+        setIsCopied(true)
+    }
+    
     // Remove hard-coded filters from state if no matches exist in current API fetch
     useEffect(() => {
         if (matches.length > 0) {
@@ -23,7 +30,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
     })
 
     function handleFilterClick(eventName) {
-        console.log(eventName)
+        setIsCopied(false)
 
         let nextFilter
 
@@ -37,6 +44,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
     }
 
     function handleFilterReset() {
+        setIsCopied(false)
         setFilterArr([])
     }
 
@@ -110,7 +118,9 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                         <MatchTable
                             matchView={matchView}
                             matches={matches}
-                            filterArr={filterArr} />
+                            filterArr={filterArr}
+                            isCopied={isCopied}
+                            handleCopyClick={handleCopyClick}/>
                     </>
             )}
         </section>
