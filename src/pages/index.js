@@ -81,7 +81,8 @@ export default function Home() {
             filterArr={filterArr}
             setFilterArr={setFilterArr}
             isCopied={isCopied}
-            handleCopyClick={handleCopyClick} />
+            handleCopyClick={handleCopyClick}
+            setIsCopied={setIsCopied} />
           <Tooltip id="event-name-tooltip" />
         </main>
       </div>
