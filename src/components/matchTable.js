@@ -113,7 +113,7 @@ export default function MatchTable({ matches, matchView, filterArr, isCopied, ha
                 <button
                     onClick={() => handleCopyClick()}>
                     <span>{isCopied ? 'Copied link!' : 'Copy link to this search'}</span>
-                    <FontAwesomeIcon className='text-xs' icon={faCopy} />
+                    <FontAwesomeIcon icon={faCopy} />
                 </button> 
             </div>
             <ul>{rows}</ul>
