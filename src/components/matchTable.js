@@ -109,7 +109,7 @@ export default function MatchTable({ matches, matchView, filterArr, isCopied, ha
     
     return (
         <div className='px-4 py-0 md:py-2 md:col-span-7'>
-            <div className='my-2 flex justify-center md:justify-end'>
+            <div className='mt-2 mb-6 md:my-2 flex justify-center md:justify-end'>
                 <button
                     onClick={() => handleCopyClick()}>
                     <span className='mr-2'>{isCopied ? 'Copied link!' : 'Copy link to this search'}</span>
