@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {  
   // Query params has this shape: /?filters=Champions+Tour+2023%3A+Americas+League,Champions+Tour+2023%3A+EMEA+League,Champions+Tour+2023%3A+Pacific+League,Challengers+League%3A+North+America
   const router = useRouter();
-  const { filters } = router.query
+  const { filters, view } = router.query
 
   const [matchView, setMatchView] = useState('upcoming')
   const [vlrData, setVlrData] = useState([])
@@ -37,6 +37,7 @@ export default function Home() {
   useEffect(() => {
     if (!router.isReady) return;
     if (filters) setFilterArr(filters.split(','))
+    if (view) setMatchView(view)
   }, [router.isReady])
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function Home() {
   }
 
   function handleCopyClick() {
-    navigator.clipboard.writeText(filterArr.length > 0 ? 'https://www.post-plant.com?filters=' + encodeURI(filterArr.join(',')) : 'https://www.post-plant.com')
+    navigator.clipboard.writeText(filterArr.length > 0 ? 'https://www.post-plant.com?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : 'https://www.post-plant.com')
     setIsCopied(true)
   }
 
