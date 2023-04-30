@@ -103,7 +103,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                             </Modal>
                         </div>
                         <FilterBar
-                            styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
+                            styleOptions='hidden md:block m-0 md:mt-10 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
                             matches={matches}
                             filterArr={filterArr}
                             onFilterClick={(e) => handleFilterClick(e.target.textContent)}
