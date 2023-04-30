@@ -64,7 +64,7 @@ export default function Home() {
   }
 
   function handleCopyClick() {
-    navigator.clipboard.writeText(filterArr.length > 0 ? window.location.host + '?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : window.location.host)
+    navigator.clipboard.writeText(filterArr.length > 0 ? 'https://' + window.location.host + '?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : 'https://' + window.location.host)
     setIsCopied(true)
   }
 
