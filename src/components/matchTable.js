@@ -112,7 +112,7 @@ export default function MatchTable({ matches, matchView, filterArr, isCopied, ha
             <div className='my-4 flex justify-center md:justify-end'>
                 <button
                     onClick={() => handleCopyClick()}>
-                    <span>{isCopied ? 'Copied link!' : 'Copy link to this search'}</span>
+                    <span className='mr-2'>{isCopied ? 'Copied link!' : 'Copy link to this search'}</span>
                     <FontAwesomeIcon icon={faCopy} />
                 </button> 
             </div>
