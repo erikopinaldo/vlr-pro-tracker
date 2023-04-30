@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#__next');
 
-export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr }) {
+export default function FilterableMatchTable({ matchView, matches, filterArr, setFilterArr, isCopied, handleCopyClick, setIsCopied }) {
     // Remove hard-coded filters from state if no matches exist in current API fetch
     useEffect(() => {
         if (matches.length > 0) {
@@ -23,7 +23,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
     })
 
     function handleFilterClick(eventName) {
-        console.log(eventName)
+        setIsCopied(false)
 
         let nextFilter
 
@@ -37,6 +37,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
     }
 
     function handleFilterReset() {
+        setIsCopied(false)
         setFilterArr([])
     }
 
@@ -73,7 +74,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                     <>
                         <div className='block md:hidden my-4 flex justify-center'>
                             <button
-                                className='inline-block md:hidden mx-4'
+                                className='inline-block md:hidden mx-4 px-4 py-2 rounded bg-sky-950'
                                 onClick={openModal}>
                                 Filters
                             </button>
@@ -102,7 +103,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                             </Modal>
                         </div>
                         <FilterBar
-                            styleOptions='hidden md:block m-0 md:mt-4 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
+                            styleOptions='hidden md:block m-0 md:mt-10 px-4 py-2 bg-gray-950 md:col-span-2 overflow-hidden'
                             matches={matches}
                             filterArr={filterArr}
                             onFilterClick={(e) => handleFilterClick(e.target.textContent)}
@@ -110,7 +111,9 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                         <MatchTable
                             matchView={matchView}
                             matches={matches}
-                            filterArr={filterArr} />
+                            filterArr={filterArr}
+                            isCopied={isCopied}
+                            handleCopyClick={handleCopyClick}/>
                     </>
             )}
         </section>

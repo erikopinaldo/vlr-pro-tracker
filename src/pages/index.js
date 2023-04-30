@@ -8,16 +8,20 @@ import { Tooltip } from 'react-tooltip'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 
+// https://stackoverflow.com/questions/66539699/fontawesome-icons-not-working-properly-in-react-next-app
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {  
   // Query params has this shape: /?filters=Champions+Tour+2023%3A+Americas+League,Champions+Tour+2023%3A+EMEA+League,Champions+Tour+2023%3A+Pacific+League,Challengers+League%3A+North+America
   const router = useRouter();
-  const { filters } = router.query
+  const { filters, view } = router.query
 
   const [matchView, setMatchView] = useState('upcoming')
   const [vlrData, setVlrData] = useState([])
   const [filterArr, setFilterArr] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
 
   // Get VLR data from API
   const getVlrData = async () => {
@@ -33,6 +37,7 @@ export default function Home() {
   useEffect(() => {
     if (!router.isReady) return;
     if (filters) setFilterArr(filters.split(','))
+    if (view) setMatchView(view)
   }, [router.isReady])
 
   useEffect(() => {
@@ -55,6 +60,12 @@ export default function Home() {
 
     setFilterArr([])
     setMatchView(viewName.toLowerCase())
+    setIsCopied(false)
+  }
+
+  function handleCopyClick() {
+    navigator.clipboard.writeText(filterArr.length > 0 ? window.location.host + '?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : window.location.host)
+    setIsCopied(true)
   }
 
   return (
@@ -72,7 +83,10 @@ export default function Home() {
             vlrData={vlrData}
             matches={matches}
             filterArr={filterArr}
-            setFilterArr={setFilterArr} />
+            setFilterArr={setFilterArr}
+            isCopied={isCopied}
+            handleCopyClick={handleCopyClick}
+            setIsCopied={setIsCopied} />
           <Tooltip id="event-name-tooltip" />
         </main>
       </div>
