@@ -7,6 +7,8 @@ import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
+
+// https://stackoverflow.com/questions/66539699/fontawesome-icons-not-working-properly-in-react-next-app
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
 const inter = Inter({ subsets: ['latin'] })
