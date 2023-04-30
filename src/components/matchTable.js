@@ -2,6 +2,9 @@ import MatchRow from './matchRow'
 import MatchDateHeader from './matchDateHeader'
 import { DateTime } from 'luxon'
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function MatchTable({ matches, matchView, filterArr, isCopied, handleCopyClick }) {  
     const rows = []
@@ -110,6 +113,7 @@ export default function MatchTable({ matches, matchView, filterArr, isCopied, ha
                 <button
                     onClick={() => handleCopyClick()}>
                     <span>{isCopied ? 'Copied link!' : 'Copy link to this search'}</span>
+                    <FontAwesomeIcon className='text-xs' icon={faCopy} />
                 </button> 
             </div>
             <ul>{rows}</ul>
