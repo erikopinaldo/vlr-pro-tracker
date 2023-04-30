@@ -7,6 +7,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
