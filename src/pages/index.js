@@ -64,7 +64,7 @@ export default function Home() {
   }
 
   function handleCopyClick() {
-    navigator.clipboard.writeText(filterArr.length > 0 ? 'https://www.post-plant.com?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : 'https://www.post-plant.com')
+    navigator.clipboard.writeText(filterArr.length > 0 ? window.location.host + '?filters=' + encodeURI(filterArr.join(',')) + '&view=' + matchView : window.location.host)
     setIsCopied(true)
   }
 
