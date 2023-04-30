@@ -74,7 +74,7 @@ export default function FilterableMatchTable({ matchView, matches, filterArr, se
                     <>
                         <div className='block md:hidden my-4 flex justify-center'>
                             <button
-                                className='inline-block md:hidden mx-4'
+                                className='inline-block md:hidden mx-4 px-4 py-2 rounded bg-sky-950'
                                 onClick={openModal}>
                                 Filters
                             </button>
